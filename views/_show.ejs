@@ -1,0 +1,57 @@
+<%
+  function formatBytes(bytes) {
+    if (!bytes && bytes !== 0) return 'Unknown';
+    const kb = bytes / 1024;
+    const mb = kb / 1024;
+    if (mb >= 1) return `${mb.toFixed(2)} MB`;
+    return `${Math.round(kb)} KB`;
+  }
+%>
+
+<div class="detail">
+  <div class="detailTop">
+    <div>
+      <h3 class="detailTitle"><%= photo.title || 'Untitled' %></h3>
+      <div class="muted"><%= photo.description || 'No description.' %></div>
+    </div>
+  </div>
+
+  <img
+    class="large"
+    src="/uploads/large/<%= photo.largeFile %>"
+    alt="<%= photo.title || photo.originalName %>"
+  />
+
+  <div class="meta">
+    <div class="metaRow">
+      <span class="label">Filename</span>
+      <span class="mono"><%= photo.originalName %></span>
+    </div>
+
+    <div class="metaRow">
+      <span class="label">Stored</span>
+      <span class="mono">thumbs/<%= photo.thumbFile %>, large/<%= photo.largeFile %></span>
+    </div>
+
+    <div class="metaRow">
+      <span class="label">Size</span>
+      <span><%= (photo.width && photo.height) ? `${photo.width}×${photo.height}` : 'Unknown' %></span>
+    </div>
+
+    <div class="metaRow">
+      <span class="label">Uploaded</span>
+      <span><%= photo.createdAt.toLocaleString() %></span>
+    </div>
+
+    <div class="metaRow">
+      <span class="label">Large file size</span>
+      <span><%= formatBytes(photo.largeBytes) %></span>
+    </div>
+
+    <div class="metaRow">
+      <span class="label">Thumbnail size</span>
+      <span><%= formatBytes(photo.thumbBytes) %></span>
+    </div>
+
+  </div>
+</div>

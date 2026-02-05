@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Gallery</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>Simple Gallery</h1>
+      <p class="muted">Upload an image → it saves metadata in MongoDB and creates a thumbnail + large version.</p>
+    </header>
+
+    <section class="card">
+      <h2>Upload</h2>
+      <form class="uploadForm" action="/photos/upload" method="POST" enctype="multipart/form-data">
+        <input class="input" type="text" name="title" placeholder="Image title (optional)" maxlength="60" />
+        <textarea class="input textarea" name="description" placeholder="Description (optional)" maxlength="240"></textarea>
+        <input class="input" type="file" name="image" accept="image/*" required />
+        <button class="btn" type="submit">Upload</button>
+      </form>
+    </section>
+
+    <div class="twoCol">
+      <section class="card">
+        <h2>Gallery</h2>
+        <%- include('./_gallery', { photos }) %>
+      </section>
+
+      <aside class="card" id="detailPane">
+        <div class="muted">Click a thumbnail to view the image and details.</div>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>
